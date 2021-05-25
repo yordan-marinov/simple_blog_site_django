@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from .models import Post
@@ -17,7 +17,8 @@ def post_list(request):
 
 
 def post_detail(request, pk):
-    post = Post.objects.get(id=pk)
+    # post = Post.objects.get(id=pk)
+    post = get_object_or_404(Post, id=pk)
     context = {
         "post": post,
         "page_title": "details",
@@ -42,7 +43,8 @@ def post_create(request):
 
 
 def post_update(request, pk):
-    post = Post.objects.get(id=pk)
+    # post = Post.objects.get(id=pk)
+    post = get_object_or_404(Post, id=pk)
     form = PostForm(request.POST or None, instance=post)
 
     if form.is_valid():
